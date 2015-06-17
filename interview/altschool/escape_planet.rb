@@ -199,7 +199,7 @@ input = Escape.read_json( 'v3_chart.json' )
 
 start = Time.now
 
-input = Escape.benchmark_helper(input, 1000)
+input = Escape.benchmark_helper(input, 2000)
 result = Escape.find_escape(input)
 
 elapsed = Time.now - start
@@ -207,4 +207,7 @@ puts "#{elapsed} seconds taken."
 
 puts "Result: #{result}"
 
+file = 'course.json'
+File.write(file, result)
+puts "Results saved to #{file}"
 
