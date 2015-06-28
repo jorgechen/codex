@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<h1>CSV file manager</h1>
+
+<!-- Uploader -->
+<form enctype="multipart/form-data" >
+  <input type="file" name="file" size="40">
+  <input type="submit" value="Upload">
+</form>
+
+<br/>
+
+<div id='upload_result'></div>
+
+<br/>
+
+<!-- Edit box -->
+<textarea id='editor' type='textarea' placeholder='Data will be shown here. ' name='editor' rows='10' style="width: 100%"></textarea>
+
+
+<script type="text/javascript">
+  $(function() {
+
+    function update(result) {
+      $('#upload_result').html("RESULT: " + JSON.stringify(result));
+    }
+
+    $('form').submit( function(e) {
+      // Do not reload the page
+      e.preventDefault();
+
+    // $(':submit').click(function(){
+      // Upload file
+      var formData = new FormData($('form')[0]);
+
+      $.ajax({
+          url: '/upload',
+          type: 'POST',
+          //Ajax events
+          success: function(result) {
+            // Put it into the text area
+            update(result);
+            $('#editor').val(result);
+          },
+          error: function(error) {
+            update(error);
+          },
+          data: formData,
+          cache: false,
+          // contentType: false,
+          // contentType: 'text/csv',
+          processData: false
+      });
+    });
+
+  });
+</script>
+
+{% endblock %}
