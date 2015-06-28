@@ -3,54 +3,57 @@
 
 <h1>CSV file manager</h1>
 
+<span style='color: red;'>
+  {% if error %}
+  {{ error }}
+  {% endif %}
+</span>
+
 <!-- Uploader -->
-<form enctype="multipart/form-data" >
+<form action='/upload' method='post' enctype="multipart/form-data" >
   <input type="file" name="file" size="40">
   <input type="submit" value="Upload">
 </form>
 
 <br/>
 
-<div id='upload_result'></div>
-
-<br/>
-
 <!-- Edit box -->
-<textarea id='editor' type='textarea' placeholder='Data will be shown here. ' name='editor' rows='10' style="width: 100%"></textarea>
+<textarea id='editor' type='textarea' placeholder='Data will be shown here. ' name='editor' rows='30' style="width: 100%">
+{% if contents %}
+{{ contents }}
+{% endif %}
+</textarea>
 
+<button type='button'> Update CSV </button>
+<div id='upload_result'></div>
 
 <script type="text/javascript">
   $(function() {
 
     function update(result) {
-      $('#upload_result').html("RESULT: " + JSON.stringify(result));
+      $('#upload_result').html(JSON.stringify(result));
     }
 
-    $('form').submit( function(e) {
-      // Do not reload the page
-      e.preventDefault();
+    $(':button').click( function() {
 
-    // $(':submit').click(function(){
-      // Upload file
-      var formData = new FormData($('form')[0]);
+      console.log("button clicked")
+
+      var contents = ''
 
       $.ajax({
-          url: '/upload',
+          url: '/update',
           type: 'POST',
           //Ajax events
           success: function(result) {
             // Put it into the text area
-            update(result);
+            update("Updated: " + result);
             $('#editor').val(result);
           },
           error: function(error) {
-            update(error);
+            update("Error: " + error);
           },
           data: formData,
-          cache: false,
-          // contentType: false,
-          // contentType: 'text/csv',
-          processData: false
+          contentType: 'text/csv'
       });
     });
 

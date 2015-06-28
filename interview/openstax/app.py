@@ -1,5 +1,7 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, redirect, make_response, session
 from flask.ext.sqlalchemy import SQLAlchemy
+from werkzeug import secure_filename
+
 import os
 
 
@@ -12,58 +14,48 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-  return render_template('index.html')
+  contents = request.args.get('contents')
+  error = request.args.get('error')
+  return render_template('index.html', contents=contents, error=error)
 
 
-@app.route('/<name>')
-def hello_name(name):
-  return "Hello {}!".format(name)
+@app.route('/update', methods=['POST'])
+def update():
+  text = request.args.get('text')
+  #TODO Save an edit to database
 
+  return text
+
+
+ALLOWED_EXTENSIONS = set(['csv'])
 
 def allowed_file(filename):
   return '.' in filename and \
-    filename.rsplit('.', 1)[1] in ['.csv']
+    filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
-@app.route('/upload', methods=['POST'])
+@app.route('/upload', methods=['GET', 'POST'])
 def upload():
+  error = 'Upload failed. '
+
   if request.method == 'POST':
-    f = request.files['file']
-    if f
+    file = request.files['file']
+    if file and allowed_file(file.filename):
+      filename = secure_filename(file.filename)
+      print("filename: " + filename)
 
+      contents = file.read()
+      print("CONTENTS: {}".format(contents))
+      resp = make_response(contents)
+      resp.mimetype = 'text/csv'
 
-  result = 'File upload was processed. '
+      # TODO Save to database
 
-  file = request.args.get('file')
-  session_id = request.args.get('session_id')
-  print(file)
-  print(session_id)
-  print(request.args.get('a'))
+      return redirect(url_for('index', contents=contents))
+    else:
+      error = 'File is invalid. '
 
-  from pprint import pprint
-  print("args:")
-  pprint(request.args)
-  print("files:")
-  pprint(request.files)
-  print("form:")
-  pprint(request.form)
-  print("data:")
-  pprint(request.data)
-
-    # file = request.files['file']
-    # print(file)
-  #   if file and allowed_file(file.filename):
-  #     filename = secure_filename(file.filename)
-  #     print("filename: " + filename)
-
-  #     # Save to database
-
-  # else:
-  #   result = 'Not a POST request. '
-
-
-
-  return result
+  return redirect(url_for('index', error=error))
 
 if __name__ == '__main__':
   app.secret_key = 'OpenStax homework for George Chen'
