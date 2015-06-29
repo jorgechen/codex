@@ -65,11 +65,13 @@ def update():
 def export():
   contents = get_contents()
 
-  # Return a CSV file
-  response = make_response(contents)
-  response.mimetype = 'text/csv'
-  return response
-
+  if contents:
+    # Return a CSV file
+    response = make_response(contents)
+    response.mimetype = 'text/csv'
+    return response
+  else:
+    return redirect(url_for('index', error='No data to export.'))
 
 ALLOWED_EXTENSIONS = set(['csv'])
 

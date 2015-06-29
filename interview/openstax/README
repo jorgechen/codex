@@ -1,4 +1,6 @@
 
+Install requirements:
+$ pip install Flask Flask-SQLAlchemy
 
 Set up the database:
 $ python
