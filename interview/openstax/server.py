@@ -97,8 +97,10 @@ def upload():
       item = CsvItem.query.filter_by(name=filename).first()
       if item is None:
         item = CsvItem(contents, filename)
-        db.session.add(item)
-        db.session.commit()
+      else:
+        item.contents = contents
+      db.session.add(item)
+      db.session.commit()
 
       session['name'] = item.name
 
