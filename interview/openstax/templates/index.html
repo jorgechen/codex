@@ -11,53 +11,40 @@
 
 <!-- Uploader -->
 <form action='/upload' method='post' enctype="multipart/form-data" >
-  <input type="file" name="file" size="40">
+  <input type="file" name="file">
   <input type="submit" value="Upload">
 </form>
 
 <br/>
 
-<!-- Edit box -->
-<textarea id='editor' type='textarea' placeholder='Data will be shown here. ' name='editor' rows='30' style="width: 100%">
-{% if contents %}
-{{ contents }}
+{% if content_table %}
+
+<table>
+  {% for row in content_table %}
+    <tr>
+      {% for column in row %}
+        <td> {{ column }} </td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+</table>
+
 {% endif %}
-</textarea>
 
-<button type='button'> Update CSV </button>
-<div id='upload_result'></div>
+<!-- Allow updating the CSV content -->
+<form action="/update" method="post">
+  <!-- Edit box -->
+  <textarea id='contents' type='textarea' placeholder='Data will be shown here. ' name='contents' rows='16' style="width: 100%">
+    {% if contents %}
+      {{ contents }}
+    {% endif %}
+  </textarea>
+  <input type="submit" value="Update CSV">
+</form>
 
-<script type="text/javascript">
-  $(function() {
-
-    function update(result) {
-      $('#upload_result').html(JSON.stringify(result));
-    }
-
-    $(':button').click( function() {
-
-      console.log("button clicked")
-
-      var contents = ''
-
-      $.ajax({
-          url: '/update',
-          type: 'POST',
-          //Ajax events
-          success: function(result) {
-            // Put it into the text area
-            update("Updated: " + result);
-            $('#editor').val(result);
-          },
-          error: function(error) {
-            update("Error: " + error);
-          },
-          data: formData,
-          contentType: 'text/csv'
-      });
-    });
-
-  });
-</script>
+<!-- Allow exporting the CSV content -->
+<form action="/export">
+    <input type="submit" value="Export">
+</form>
 
 {% endblock %}
