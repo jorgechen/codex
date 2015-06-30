@@ -17,7 +17,6 @@ def reverse_characters(line, left = 0, right = line.length - 1)
     i += 1
     j -= 1
   end
-
 end
 
 def reverse_each_word(line)
