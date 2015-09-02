@@ -1,0 +1,7 @@
+{
+  "description": "Web scraper bot in NodeJS",
+  "license": "Use it if you want.",
+  "dependencies": {
+    "request": "^2.61.0"
+  }
+}
