@@ -29,30 +29,47 @@ Filer.getAbsoluteFilePaths = function (fullPath, options) {
   var self = this;
   var isRecursive = options && options.recursive;
   var extensionFilter = options && options.extension;
+  var depth = options && options.depth;
 
   // DFS
   var files = [];
 
-  var list = [fullPath];
+  var list = [
+    {
+      p: fullPath,
+      d: 0
+    }
+  ];
 
   do {
     var head = list.pop();
+    var headPath = head.p;
+    var headDepth = head.d;
 
-    if (self.isFile(head)) {
-      // This is a file
-      files.push(head);
+    if (depth && headDepth > depth) {
+      // Skip
     }
-    else if (head) {
-      var children = this.getDirectoryChildren(head);
+    else {
+      if (self.isFile(headPath)) {
+        // This is a file
+        files.push(headPath);
+      }
+      else if (headPath) {
+        var children = this.getDirectoryChildren(headPath);
 
-      // Prepend the full path of parent directory
-      children = children.map(function (child) {
-        return path.join(head, child);
-      });
+        // Prepend the full path of parent directory
+        children = children.map(function (child) {
+          return {
+            p: path.join(headPath, child),
+            d: headDepth + 1
+          };
+        });
 
-      // This is a directory, so continue thru its children
-      list.push.apply(list, children);
+        // This is a directory, so continue thru its children
+        list.push.apply(list, children);
+      }
     }
+
   } while (0 < list.length && isRecursive);
 
 
@@ -92,7 +109,6 @@ Filer.saveFile = function (filePath, data) {
   );
 };
 
-
 Filer.filterFileContent = function (fullPath, filterCallback, options) {
   var self = this;
 
@@ -110,13 +126,19 @@ Filer.filterFileContent = function (fullPath, filterCallback, options) {
 
     // Create folder if it doesn't exist yet
     var relativeOutputDirectory = path.join(outputDirectory, path.dirname(relativePath));
-    nodefs.mkdirSync(relativeOutputDirectory, '0777', true);
 
     // Now filter the content if needed and write it there
     var content = Filer.readFile(p);
     if (content) {
-      var filteredContent = filterCallback(content, fullPath, outputPath);
-      self.saveFile(outputPath, filteredContent);
+      var filteredContent = filterCallback(content, p, outputPath);
+      if (filteredContent) {
+
+        // Make sure parent directory exists
+        nodefs.mkdirSync(relativeOutputDirectory, '0777', true);
+
+        // Write file
+        self.saveFile(outputPath, filteredContent);
+      }
     }
   });
 }
