@@ -9,7 +9,8 @@ var SAVE_DIR = 'saves/';
 var saveToFile = function (filePath, data) {
   fs.writeFile(
     filePath,
-    JSON.stringify(data, null, 2),
+    data,
+    // JSON.stringify(data, null, 2),
     function(error) {
       if (error) {
         console.error(error);
