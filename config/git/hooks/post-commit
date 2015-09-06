@@ -1,0 +1,15 @@
+#!/bin/sh
+
+## This takes care of the gh-pages branch whenever we commit in master
+echo 'POST COMMIT SCRIPT START'
+
+git stash
+
+git checkout gh-pages
+git pull origin gh-pages
+git rebase master
+git checkout master
+
+git stash pop
+
+echo 'POST COMMIT sync ended for gh-pages branch, did it work?'
