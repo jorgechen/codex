@@ -1,0 +1,6 @@
+[
+  { "keys": ["super+l"], "command": "show_overlay", "args": {"overlay": "goto", "text": ":"} },
+  { "keys": ["super+shift+r"], "command": "reveal_in_side_bar" },
+  { "keys": ["super+e"], "command": "find_under_expand" },
+  { "keys": ["super+d"], "command": "run_macro_file", "args": {"file": "Packages/Default/Delete Line.sublime-macro"} }
+]
