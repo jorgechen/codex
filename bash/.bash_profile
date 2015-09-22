@@ -17,7 +17,7 @@ alias ga="git add"
 # cool terminal color scheme
 export TERM="xterm-color"
 alias ls="ls -G"
-PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] "
+PS1="\[\033[01;32m\]\u@\h\[\033[01;36m\] \w \$\[\033[00m\] "
 
 # Prioritize git installed by brew instead of Apple Git
 export PATH="/usr/local/bin:$PATH"
