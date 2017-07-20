@@ -13,6 +13,11 @@ alias h=history
 alias gs="git status"
 alias gd="git diff"
 alias ga="git add"
+alias gl="git log"
+alias gb="git branch"
+alias gc="git checkout"
+alias gp="git pull"
+alias gr="git reset"
 
 # cool terminal color scheme
 export TERM="xterm-color"
