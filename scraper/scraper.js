@@ -1,28 +1,22 @@
 // NodeJS HTTP content scraper.
-var client = require('./client');
 var path = require('path');
 var fs = require('fs');
+const url = require('url')
+const _ = require('lodash')
+const axios = require('axios');
+
+////////////////////////////////////////
+// variables
+////////////////////////////////////////
+const SAVE_DIR = 'sfv/';
+const site = 'http://ki.infil.net/images/'
+// const target = 'http://catalog.data.gov/dataset/nist-its-90-thermocouple-database-srd-60',
+// const filterRegex = /.*\.json/i;
+const filterRegex = /.*\.(gif|png|jpg)/i;
 
 
-var SAVE_DIR = 'saves/';
-
-var saveToFile = function (filePath, data) {
-  fs.writeFile(
-    filePath,
-    data,
-    // JSON.stringify(data, null, 2),
-    function(error) {
-      if (error) {
-        console.error(error);
-      }
-      else {
-        console.log('Saved ' + filePath);
-      }
-    }
-  );
-}
-
-
+////////////////////////////////////////
+////////////////////////////////////////
 var saveFromHttp = function (url) {
   console.log('Getting ' + url);
 
@@ -31,39 +25,65 @@ var saveFromHttp = function (url) {
   var fileName = info.base;
 
   if (fileName) {
-    client.request(
+    axios({
+      method: 'get',
       url,
-      function saveJsonData(data) {
-        saveToFile(path.resolve(SAVE_DIR, fileName), data);
+      responseType: 'stream',
+    }).then(response => {
+      if (response.status === 200) {
+        const location = path.resolve(SAVE_DIR, fileName)
+        console.log('Saving' + location);
+        return response.data.pipe(fs.createWriteStream(location))
       }
-    );
+      return Promise.reject(new Error(`${response.status} ${response.statusText}`))
+    }).catch((err) => {
+      console.error(err);
+    })
   }
 }
 
-var urlRegex = /\b(https?|ftp|file):\/\/[\-A-Za-z0-9+&@#\/%?=~_|!:,.;]*[\-A-Za-z0-9+&@#\/%=~_|‌​]/ig
-var jsonRegex = /.*\.json/i;
-
-var succeed = function (data) {
+var succeed = function (data, home) {
   if ('string' === typeof data) {
+    console.log('response char length = ' + data.length);
+    const links = []
 
-    console.log('response length = ' + data.length);
+    // Try to find all the complete URLs
+    var urlMatches = data.match(/\b(https?|ftp|file):\/\/[\-A-Za-z0-9+&@#\/%?=~_|!:,.;]*[\-A-Za-z0-9+&@#\/%=~_|‌​]/ig);
+    if (urlMatches) {
+      for (var i = 0; i < urlMatches.length; i++) {
+        var m = urlMatches[i];
 
-    var matches = data.match(urlRegex);
-    for (var i = 0; i < matches.length; i++) {
-      var m = matches[i];
-
-      if (m.match(jsonRegex)) {
-        saveFromHttp(m);
+        links.push(m)
       }
     }
+
+    // Try to find all the hrefs
+    const hrefMatches = data.match(/<a [^<>]*href=["'][^<>]+['"]/g)
+    if (hrefMatches) {
+      _.each(hrefMatches, href => {
+        const possibleLink = href.match(/href=["']([^<>]+)['"]/)[1]
+        if (!_.includes(links, possibleLink)) {
+          const l = url.resolve(home, possibleLink)
+          links.push(l)
+        }
+      })
+    }
+
+    // Finally we got all the links!
+    _.each(_.uniq(links), link => {
+      const m = link.match(filterRegex)
+      if (m) {
+        saveFromHttp(link);
+      }
+    })
   }
 }
 
-// Scrape a page for .json URLs
-client.request(
-  'http://catalog.data.gov/dataset/nist-its-90-thermocouple-database-srd-60',
-  function (data) {
-    succeed(data);
+axios.get(site).then(response => {
+  if (response.status === 200) {
+    return succeed(response.data, site)
   }
-);
-
+  return Promise.reject(new Error(`Error from the request GET ${site}`))
+}).catch((err) => {
+  console.error(err);
+})
