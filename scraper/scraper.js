@@ -1,37 +1,65 @@
 // NodeJS HTTP content scraper.
-var path = require('path');
-var fs = require('fs');
+const path = require('path');
+const fs = require('fs');
 const url = require('url')
 const _ = require('lodash')
 const axios = require('axios');
+const program = require('commander');
 
 ////////////////////////////////////////
-// variables
+// arguments
 ////////////////////////////////////////
-const SAVE_DIR = 'sfv/';
-const site = 'http://ki.infil.net/images/'
-// const target = 'http://catalog.data.gov/dataset/nist-its-90-thermocouple-database-srd-60',
-// const filterRegex = /.*\.json/i;
-const filterRegex = /.*\.(gif|png|jpg)/i;
 
+const defaults = {
+  saveDirectory: 'saves/',
+  url: 'https://game.capcom.com/cfn/sfv/character',
+  // url: 'http://ki.infil.net/images/',
+  // url: 'http://catalog.data.gov/dataset/nist-its-90-thermocouple-database-srd-60',
+  extensions: 'json',
+  cookie: 'scirid=uHdXwWZbm8fVG5Gx9ITfhjKvFFj1V6utjPohJCQ1-yAI4SDApeBab64wGhYT4MY-jvUWpC5f_rgQHsW7FXKkdGFLRHVCMHE3X1YxdUt2ZEdZbklqNUp1R1k2ck5RMTJ3SndMdlNSclA4Vk0; language=en',
+}
+
+program
+  .version('0.0.1')
+  .option('-d, --dir [directory]', `Local directory to save to [${defaults.saveDirectory}]`, defaults.saveDirectory)
+  .option('-e, --ext [extensions]', 'File extensions to filter for, separated by , or |', defaults.extensions)
+  .option('-u, --url [url]', `The root URL to request ${defaults.url}`, defaults.url)
+  .option('-c, --cookie [cookie]', `The CFN cookie`, defaults.cookie)
+  .parse(process.argv)
+
+const extensions = _.split(program.ext, /[,\|]/).join('|')
+
+console.log('Arguments:')
+console.log('-directory %s ', program.dir)
+console.log('-extensions %s ', extensions)
+console.log('-url %s ', program.url)
+
+console.log(extensions)
+
+const site = program.url
+const directory = program.dir
+const filterRegex = new RegExp(`.*\\.(${extensions})`, 'i')
+const cookieHeader = [program.cookie]
+
+const responseType = extensions.match(/png|jpg|gif/) ? 'stream' : 'text'
 
 ////////////////////////////////////////
 ////////////////////////////////////////
-var saveFromHttp = function (url) {
-  console.log('Getting ' + url);
+var saveFromHttp = (url) => {
+  console.log(`Getting ${url}`);
 
   // Get the file name from the URL
   var info = path.parse(url);
-  var fileName = info.base;
+  var fileName = _.chain(info.base).split('?').first().value();
 
   if (fileName) {
     axios({
       method: 'get',
       url,
-      responseType: 'stream',
+      responseType,
     }).then(response => {
       if (response.status === 200) {
-        const location = path.resolve(SAVE_DIR, fileName)
+        const location = path.resolve(directory, fileName)
         console.log('Saving' + location);
         return response.data.pipe(fs.createWriteStream(location))
       }
@@ -79,7 +107,11 @@ var succeed = function (data, home) {
   }
 }
 
-axios.get(site).then(response => {
+axios.get(site, {
+  headers: {
+    Cookie: cookieHeader,
+  },
+}).then(response => {
   if (response.status === 200) {
     return succeed(response.data, site)
   }
