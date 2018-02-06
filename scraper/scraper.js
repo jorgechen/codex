@@ -16,7 +16,7 @@ const defaults = {
   // url: 'http://ki.infil.net/images/',
   // url: 'http://catalog.data.gov/dataset/nist-its-90-thermocouple-database-srd-60',
   extensions: 'json',
-  cookie: 'scirid=uHdXwWZbm8fVG5Gx9ITfhjKvFFj1V6utjPohJCQ1-yAI4SDApeBab64wGhYT4MY-jvUWpC5f_rgQHsW7FXKkdGFLRHVCMHE3X1YxdUt2ZEdZbklqNUp1R1k2ck5RMTJ3SndMdlNSclA4Vk0; language=en',
+  cookie: 'scirid=OFIyX2NUX29089tV9PkIF6r-X7hY9p82PH21ivgdqM4IAFhuo0VXG8IC359AaafvuyLFxw_HxVUx1LARUYx3BXA4c3E3bENtbnUxSlFQRWVOVjhNaDc2WnMtYS1lSzh0Rk84QTcxaXdvM2M; language=en',
 }
 
 program
