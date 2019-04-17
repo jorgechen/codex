@@ -24,6 +24,8 @@ alias gr="git reset"
 export TERM="xterm-color"
 alias ls="ls -G"
 PS1="\[\033[01;32m\]\u@\h\[\033[01;36m\] \w \$\[\033[00m\] "
+PS1="\[\033[01;32m\]\t\[\033[01;36m\] \w \$\[\033[00m\] " #https://askubuntu.com/a/770970/419423
+
 
 # Prioritize git installed by brew instead of Apple Git
 export PATH="/usr/local/bin:$PATH"
