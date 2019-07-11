@@ -9,7 +9,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "commander": "^2.12.2",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.13"
   },
   "devDependencies": {
     "babel-eslint": "^8.1.2",
