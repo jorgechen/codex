@@ -9,11 +9,6 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export GOPATH="/Users/george/go"
 export PATH="$PATH:$GOPATH/bin"
 
-[[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
-
-
-# added by George
-
 # aliases
 alias cd..="cd .."
 alias ll="ls -al"
@@ -49,8 +44,12 @@ export PATH="/usr/local/bin:$PATH"
 #export SLACKBOT_TOKEN=tQjoMhsVpbLxiHlwBTf9BbTL
 #export HUBOT_SLACK_TOKEN=xoxb-12032015303-Mm74bUH1L4K2XqIw6lJYYibE
 
-# Knocki AWS 
+# Knocki AWS
 #export AWS_ACCESS_KEY_ID=AKIAINB7BX6VBFY3WLEA
 #export AWS_SECRET_ACCESS_KEY=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
 #export PATH="/usr/local/opt/postgresql@9.5/bin:$PATH"
 #export PATH="/usr/local/opt/node@8/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
