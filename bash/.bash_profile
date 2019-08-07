@@ -36,19 +36,9 @@ export PATH="/usr/local/bin:$PATH"
 # Android SDK
 #export PATH=${PATH}:/Users/knav/Library/Android/sdk/platform-tools:/Users/knav/Library/Android/sdk/tools
 
-# GoCo valdiation SSL
+# Ruby on Rails valdiation SSL
 #export SSL_CERT_FILE=/usr/local/etc/openssl/cert.pem
 #export SSL_CERT_FILE=/usr/local/etc/openssl/cert.pem_old
-
-# SlackBot integration
-#export SLACKBOT_TOKEN=tQjoMhsVpbLxiHlwBTf9BbTL
-#export HUBOT_SLACK_TOKEN=xoxb-12032015303-Mm74bUH1L4K2XqIw6lJYYibE
-
-# Knocki AWS
-#export AWS_ACCESS_KEY_ID=AKIAINB7BX6VBFY3WLEA
-#export AWS_SECRET_ACCESS_KEY=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
-#export PATH="/usr/local/opt/postgresql@9.5/bin:$PATH"
-#export PATH="/usr/local/opt/node@8/bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
