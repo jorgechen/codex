@@ -9,8 +9,9 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export GOPATH="/Users/george/go"
 export PATH="$PATH:$GOPATH/bin"
 
-# aliases
+### aliases ###
 alias cd..="cd .."
+#alias k="kubectl"
 alias ll="ls -al"
 alias lp="ls -p"
 alias lh="ls -a"
@@ -27,9 +28,10 @@ alias gp="git pull"
 alias gu="git push"
 alias gr="git reset"
 
-# cool terminal color scheme
+### terminal color scheme ###
 export TERM="xterm-color"
 alias ls="ls -G"
+# PS1="\[\033[01;32m\]\u@\h\[\033[01;36m\] \w \$\[\033[00m\] "
 PS1="\[\033[01;32m\]\t\[\033[01;36m\] \w \$\[\033[00m\] " #https://askubuntu.com/a/770970/419423
 
 # Prioritize git installed by brew instead of Apple Git
