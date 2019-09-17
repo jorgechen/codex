@@ -22,7 +22,9 @@ alias gl="git log"
 alias glo="git log --decorate --oneline"
 alias gb="git branch"
 alias gc="git checkout"
+alias gf="git fetch"
 alias gp="git pull"
+alias gu="git push"
 alias gr="git reset"
 
 # cool terminal color scheme
