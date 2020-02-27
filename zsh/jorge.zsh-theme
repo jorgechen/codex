@@ -1,24 +1,80 @@
+### Git [±master ▾●]
+
+ZSH_THEME_GIT_PROMPT_PREFIX="[%{$fg_bold[green]%}±%{$reset_color%}%{$fg_bold[white]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}]"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}✓%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg[cyan]%}▴%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg[magenta]%}▾%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_STAGED="%{$fg_bold[green]%}●%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_UNSTAGED="%{$fg_bold[yellow]%}●%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg_bold[red]%}●%{$reset_color%}"
+
+bureau_git_status() {
+  local _STATUS=""
+
+  # check status of files
+  local _INDEX=$(command git status --porcelain 2> /dev/null)
+  if [[ -n "$_INDEX" ]]; then
+    if $(echo "$_INDEX" | command grep -q '^[AMRD]. '); then
+      _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_STAGED"
+    fi
+    if $(echo "$_INDEX" | command grep -q '^.[MTD] '); then
+      _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_UNSTAGED"
+    fi
+    if $(echo "$_INDEX" | command grep -q -E '^\?\? '); then
+      _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_UNTRACKED"
+    fi
+    if $(echo "$_INDEX" | command grep -q '^UU '); then
+      _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_UNMERGED"
+    fi
+  else
+    _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_CLEAN"
+  fi
+
+  # check status of local repository
+  _INDEX=$(command git status --porcelain -b 2> /dev/null)
+  if $(echo "$_INDEX" | command grep -q '^## .*ahead'); then
+    _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_AHEAD"
+  fi
+  if $(echo "$_INDEX" | command grep -q '^## .*behind'); then
+    _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_BEHIND"
+  fi
+  if $(echo "$_INDEX" | command grep -q '^## .*diverged'); then
+    _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_DIVERGED"
+  fi
+
+  if $(command git rev-parse --verify refs/stash &> /dev/null); then
+    _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_STASHED"
+  fi
+
+  echo $_STATUS
+}
+
+
+### Display error coding
 function check_last_exit_code() {
   local LAST_EXIT_CODE=$?
   if [[ $LAST_EXIT_CODE -ne 0 ]]; then
     local EXIT_CODE_PROMPT=''
-    EXIT_CODE_PROMPT+="%{$fg[red]%}-%{$reset_color%}"
-    EXIT_CODE_PROMPT+="%{$fg_bold[red]%}$LAST_EXIT_CODE%{$reset_color%}"
-    EXIT_CODE_PROMPT+="%{$fg[red]%}-%{$reset_color%} "
+    EXIT_CODE_PROMPT+="%{$FG[088]%}-%{$reset_color%}"
+    EXIT_CODE_PROMPT+="%{$FG[088]%}$LAST_EXIT_CODE%{$reset_color%}"
+    EXIT_CODE_PROMPT+="%{$FG[088]%}-%{$reset_color%} "
     echo "$EXIT_CODE_PROMPT"
   fi
 }
 
+### Color root user differently
 if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="white"; fi
 
-PROMPT='$(check_last_exit_code)%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}:%{$fg[yellow]%}%B%~%b%{$reset_color%} $(git_prompt_info)%B%(!.#.$)%b '
-RPROMPT='⌚ %{$FG[049]%}%*%{$reset_color%}'
+### Prompts
+PROMPT='$(check_last_exit_code)%{$fg[$NCOLOR]%}%B%n%{$reset_color%}:%{$fg[yellow]%}%B%~%{$reset_color%} $(git_prompt_info) %(!.#.$) '
+RPROMPT='$(bureau_git_status)⌚ %{$FG[049]%}%*%{$reset_color%}'
 
 # git theming
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$FG[061]%}%B"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%b%{$reset_color%} "
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$FG[088]%} ✗"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$FG[172]%} ✗"
 
 # LS colors, made with https://geoff.greer.fm/lscolors/
 #export LSCOLORS="Gxfxcxdxbxegedabagacad"
