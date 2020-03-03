@@ -56,18 +56,16 @@ function check_last_exit_code() {
   local LAST_EXIT_CODE=$?
   if [[ $LAST_EXIT_CODE -ne 0 ]]; then
     local EXIT_CODE_PROMPT=''
-    EXIT_CODE_PROMPT+="%{$FG[088]%}-%{$reset_color%}"
-    EXIT_CODE_PROMPT+="%{$FG[088]%}$LAST_EXIT_CODE%{$reset_color%}"
-    EXIT_CODE_PROMPT+="%{$FG[088]%}-%{$reset_color%} "
+    EXIT_CODE_PROMPT+="%{$FG[160]%}-%{$reset_color%}"
+    EXIT_CODE_PROMPT+="%{$FG[160]%}$LAST_EXIT_CODE%{$reset_color%}"
+    EXIT_CODE_PROMPT+="%{$FG[160]%}-%{$reset_color%} "
     echo "$EXIT_CODE_PROMPT"
   fi
 }
 
-### Color root user differently
-if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="white"; fi
 
 ### Prompts
-PROMPT='$(check_last_exit_code)%{$fg[$NCOLOR]%}%B%n%{$reset_color%}:%{$fg[yellow]%}%B%~%{$reset_color%} $(git_prompt_info) %(!.#.$) '
+PROMPT='$(check_last_exit_code)$(git_prompt_info) %{$fg[yellow]%}%B%~%{$reset_color%}  '
 RPROMPT='$(bureau_git_status)⌚ %{$FG[049]%}%*%{$reset_color%}'
 
 # git theming
