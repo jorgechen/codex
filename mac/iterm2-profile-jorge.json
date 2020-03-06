@@ -379,7 +379,7 @@
     "Blue Component" : 1
   },
   "ASCII Ligatures" : false,
-  "Name" : "arrow keys by word",
+  "Name" : "jorge-iterm2-profile",
   "Cursor Text Color" : {
     "Green Component" : 1,
     "Red Component" : 1,
@@ -399,9 +399,11 @@
     "Blue Component" : 0
   },
   "Ansi 1 Color" : {
-    "Green Component" : 0,
-    "Red Component" : 0.73333334922790527,
-    "Blue Component" : 0
+    "Red Component" : 0.864532470703125,
+    "Color Space" : "sRGB",
+    "Blue Component" : 0.020433972124010324,
+    "Alpha Component" : 1,
+    "Green Component" : 0.13382033760478684
   },
   "Ansi 2 Color" : {
     "Green Component" : 0.73333334922790527,
@@ -425,7 +427,7 @@
     "Blue Component" : 0
   },
   "AWDS Tab Directory" : "",
-  "Normal Font" : "OperatorMono-Book 13.5",
+  "Normal Font" : "OperatorMono-Book 13",
   "Custom Directory" : "Recycle",
   "Ansi 5 Color" : {
     "Green Component" : 0,
