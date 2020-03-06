@@ -65,8 +65,8 @@ function check_last_exit_code() {
 
 
 ### Prompts
-PROMPT='$(check_last_exit_code)$(git_prompt_info) %{$fg[yellow]%}%B%~%{$reset_color%}  '
-RPROMPT='$(bureau_git_status)⌚ %{$FG[049]%}%*%{$reset_color%}'
+PROMPT='$(check_last_exit_code)$(git_prompt_info)$(bureau_git_status) %{$fg[yellow]%}%B%~%{$reset_color%}  '
+RPROMPT='⌚ %{$FG[049]%}%*%{$reset_color%}'
 
 # git theming
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$FG[061]%}%B"
