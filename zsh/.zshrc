@@ -1,5 +1,6 @@
 export NPM_TOKEN='TODO_FILL_ME'
 export ZSH="/Users/george/.oh-my-zsh"
+export DOTNET_CLI_TELEMETRY_OPTOUT=true
 
 # FILL OUT ABOVE THEN REMOVE THE FOLLOWING echo STATEMENTS
 echo 'FILL OUT ~/.zshrc'
