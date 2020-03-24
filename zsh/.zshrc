@@ -7,6 +7,12 @@ echo 'FILL OUT ~/.zshrc'
 echo 'ZSH=...'
 echo 'NPM_TOKEN=...'
 
+# George's utility commands
+guid() {
+ _guid=$(uuidgen)
+ echo $_guid
+ echo $_guid | pbcopy
+}
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
