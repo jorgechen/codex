@@ -25,6 +25,7 @@ program
   .option('-e, --ext [extensions]', 'File extensions to filter for, separated by , or |', defaults.extensions)
   .option('-u, --url [url]', `The root URL to request ${defaults.url}`, defaults.url)
   .option('-c, --cookie [cookie]', `The CFN cookie`, defaults.cookie)
+  .option('-o, --no-skip', 'Overwrite existing files instead of skipping')
   .parse(process.argv)
 
 const extensions = _.split(program.ext, /[,\|]/).join('|')
@@ -52,7 +53,7 @@ var saveFromHttp = (url) => {
   var fileName = _.chain(info.base).split('?').first().value();
 
   const location = path.resolve(directory, fileName)
-  if (fs.existsSync(location)) {
+  if (fs.existsSync(location) && program.skip) {
     console.log('Skip existing', location)
     return
   }
