@@ -46,11 +46,17 @@ const responseType = extensions.match(/png|jpg|gif/) ? 'stream' : 'text'
 ////////////////////////////////////////
 ////////////////////////////////////////
 var saveFromHttp = (url) => {
-  console.log(`Getting ${url}`);
 
   // Get the file name from the URL
   var info = path.parse(url);
   var fileName = _.chain(info.base).split('?').first().value();
+
+  const location = path.resolve(directory, fileName)
+  if (fs.existsSync(location)) {
+    console.log('Skip existing', location)
+    return
+  }
+  console.log(`Getting ${url}`);
 
   if (fileName) {
     axios({
@@ -59,8 +65,7 @@ var saveFromHttp = (url) => {
       responseType,
     }).then(response => {
       if (response.status === 200) {
-        const location = path.resolve(directory, fileName)
-        console.log('Saving' + location);
+        console.log('Saving', location);
         return response.data.pipe(fs.createWriteStream(location))
       }
       return Promise.reject(new Error(`${response.status} ${response.statusText}`))
