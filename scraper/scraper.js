@@ -65,7 +65,11 @@ var saveFromHttp = (url) => {
       }
       return Promise.reject(new Error(`${response.status} ${response.statusText}`))
     }).catch((err) => {
-      console.error(err);
+      const {
+        request,
+        response
+      } = err
+      console.error(response.status, response.statusText, request.method, request.path);
     })
   }
 }
