@@ -10,23 +10,8 @@ export GOPATH="/Users/george/go"
 export PATH="$PATH:$GOPATH/bin"
 
 ### aliases ###
-alias cd..="cd .."
-alias ll="ls -al"
-alias lp="ls -p"
-alias lh="ls -a"
-alias h=history
-alias gs="git status"
-alias gstp="git stash push"
-alias gd="git diff"
-alias ga="git add"
-alias gl="git log"
-alias glo="git log --decorate --oneline"
-alias gf="git fetch"
-alias gb="git branch"
-alias gco="git checkout"
-alias gl="git pull"
-alias grh="git reset"
-alias gp="git push"
+source .alias.ohmyzsh
+source .alias
 
 ### terminal color scheme ###
 export TERM="xterm-color"
