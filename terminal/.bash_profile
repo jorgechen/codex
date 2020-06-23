@@ -10,7 +10,6 @@ export GOPATH="/Users/george/go"
 export PATH="$PATH:$GOPATH/bin"
 
 ### aliases ###
-alias k="kubectl"
 alias cd..="cd .."
 alias ll="ls -al"
 alias lp="ls -p"
