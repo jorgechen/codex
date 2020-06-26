@@ -17,14 +17,16 @@ Copy these files into your home directory:
 
 With [Git for Windows](https://gitforwindows.org/) GitBash needs us to manually `cd` to `$HOME`
 
-In *C:\...\Git\etc\profile.d\bash_profile.sh*
+1. Go into GitBash Options and change the background to RGB 10,10,10
+
+2. In *C:\...\Git\etc\profile.d\bash_profile.sh*
  
 ```shell script
 # NOTE: we cannot add this directly to .bashrc because we want JetBrains terminals to `cd` correctly into specific repos
 cd $HOME
 ```
 
-In *C:\...\Git\etc\profile.d\git-prompt.sh*
+3. In *C:\...\Git\etc\profile.d\git-prompt.sh*
 
 ```shell script
 # Comment out the conditional that executes git status, to improve performance
@@ -33,5 +35,8 @@ if test -z "$WINELOADERNOEXEC"
 fi
 
 # Ensure you have a space before $
-  PS1="$PS1"' $ '
+PS1="$PS1"' $ '
 ``` 
+
+4. In *C:\...\Git\etc\profile.d\aliases.sh*, comment out `alias ls=`, and change the alias for `--color=auto` to `alias l=`
+5. In the *.alias* comment out `alias l=`

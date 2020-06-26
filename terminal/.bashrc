@@ -16,7 +16,7 @@ export PATH="$PATH:$GOPATH/bin"
 ### terminal color scheme ###
 export TERM="xterm-color"
 # PS1="\[\033[01;32m\]\u@\h\[\033[01;36m\] \w \$\[\033[00m\] "
-PS1="\[\033[01;32m\]\t\[\033[01;36m\] \w \$\[\033[00m\] " #https://askubuntu.com/a/770970/419423
+PS1="\[\033[01;32m\]\t\[\033[01;33m\] \w \[\033[37m\]\$\[\033[00m\] " #https://askubuntu.com/a/770970/419423
 
 # Prioritize git installed by brew instead of Apple Git
 export PATH="/usr/local/bin:$PATH"
