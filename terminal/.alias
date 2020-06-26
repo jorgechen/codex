@@ -3,3 +3,4 @@ alias cd..="cd .."
 alias l='ls -lahp'
 alias h=history
 alias gs="git status"
+alias ls="ls -G"
