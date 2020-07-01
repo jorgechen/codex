@@ -6,11 +6,20 @@ My configurations for the terminal in a development environment
 
 Copy/merge these files into your home directory:
 
-```
+```shell script
 .aliases
 .aliases.ohmyzsh
 .bash_profile
 .bashrc
+```
+
+For  over-write:
+
+```shell script
+curl https://raw.githubusercontent.com/jorgechen/codex/master/terminal/.aliases -o ~/.aliases
+curl https://raw.githubusercontent.com/jorgechen/codex/master/terminal/.aliases.ohmyzsh -o ~/.aliases.ohmyzsh
+curl https://raw.githubusercontent.com/jorgechen/codex/master/terminal/.bashrc -o ~/.bashrc
+curl https://raw.githubusercontent.com/jorgechen/codex/master/terminal/.bash_profile -o ~/.bash_profile
 ```
 
 ## ZSH
@@ -36,7 +45,7 @@ In *C:\...\Git\etc\profile.d\bash_profile.sh*
 cd $HOME
 ```
 
-In *C:\...\Git\etc\profile.d\git-prompt.sh*
+In _C:\...\Git\etc\profile.d\git-prompt.sh_
 
 ```shell script
 # Comment out the conditional that executes git status, to improve performance
@@ -48,11 +57,13 @@ fi
 PS1="$PS1"' $ '
 ``` 
 
-In *.aliases* comment out `alias l=`
+In _.aliases.ohmyzsh_, comment out `alias l=` and `alias ls=` otherwise these will override the GitBash aliases
 
-In *C:\...\Git\etc\profile.d\aliases.sh*, comment out the alias commands and replace with:
+In _C:\...\Git\etc\profile.d\aliases.sh_, comment out the `alias` commands, then replace with:
 
 ```shell script
 alias l='ls -lah --color=auto --show-control-chars'
 alias ls='ls --color=auto --show-control-chars'
 ```
+
+Note that GitBash requires `--color=auto` in order to properly show colors in Windows
