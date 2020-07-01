@@ -1,11 +1,10 @@
 export NPM_TOKEN='TODO_FILL_ME'
-export ZSH="/Users/george/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 export DOTNET_CLI_TELEMETRY_OPTOUT=true
 export UPDATE_ZSH_DAYS=90
 
 # FILL OUT ABOVE THEN REMOVE THE FOLLOWING echo STATEMENTS
-echo 'FILL OUT ~/.zshrc'
-echo 'ZSH=...'
+echo 'FILL OUT ~/.zshrc for:'
 echo 'NPM_TOKEN=...'
 
 # George's utility commands
@@ -111,4 +110,4 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source .alias
+source ~/.aliases

@@ -4,14 +4,24 @@ My configurations for the terminal in a development environment
 
 ## Installation
 
-Copy these files into your home directory:
+Copy/merge these files into your home directory:
 
 ```
-.alias
-.alias.ohmyzsh
+.aliases
+.aliases.ohmyzsh
 .bash_profile
 .bashrc
 ```
+
+## ZSH
+
+After installing [Oh My ZSH](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH), copy my config:
+
+```shell script
+cd terminal
+cp .zshrc ~
+cp jorge.zsh-theme ~/.oh-my-zsh/custom/themes/jorge.zsh-theme
+``` 
 
 ## Windows 10
 
@@ -38,7 +48,7 @@ fi
 PS1="$PS1"' $ '
 ``` 
 
-In the *.alias* comment out `alias l=`
+In *.aliases* comment out `alias l=`
 
 In *C:\...\Git\etc\profile.d\aliases.sh*, comment out the alias commands and replace with:
 

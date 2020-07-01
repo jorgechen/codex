@@ -1,6 +1,6 @@
 ### aliases ###
-source ~/.alias.ohmyzsh
-source ~/.alias
+source ~/.aliases.ohmyzsh
+source ~/.aliases
 
 ### terminal color scheme ###
 export TERM="xterm-color"
