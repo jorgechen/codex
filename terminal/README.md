@@ -38,7 +38,7 @@ With [Git for Windows](https://gitforwindows.org/) GitBash needs us to manually 
 
 Go into GitBash Options and change the background to RGB 10,10,10
 
-In *C:\...\Git\etc\profile.d\bash_profile.sh*
+In _C:\...\Git\etc\profile.d\bash_profile.sh_
  
 ```shell script
 # NOTE: we cannot add this directly to .bashrc because we want JetBrains terminals to `cd` correctly into specific repos
@@ -57,13 +57,12 @@ fi
 PS1="$PS1"' $ '
 ``` 
 
-In _.aliases.ohmyzsh_, comment out `alias l=` and `alias ls=` otherwise these will override the GitBash aliases
+In _.aliases.ohmyzsh_, comment out `alias ls=` otherwise these will override the GitBash aliases
 
 In _C:\...\Git\etc\profile.d\aliases.sh_, comment out the `alias` commands, then replace with:
 
 ```shell script
-alias l='ls -lah --color=auto --show-control-chars'
+# GitBash requires `--color=auto` in order to properly show colors in Windows
 alias ls='ls --color=auto --show-control-chars'
 ```
 
-Note that GitBash requires `--color=auto` in order to properly show colors in Windows
