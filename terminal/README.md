@@ -36,28 +36,30 @@ cp jorge.zsh-theme ~/.oh-my-zsh/custom/themes/jorge.zsh-theme
 
 With [Git for Windows](https://gitforwindows.org/) GitBash needs us to manually `cd` to `$HOME`
 
-Go into GitBash Options and change the background to RGB 10,10,10
+Go into GitBash Options and change the background to RGB 10,10,10 with low transparency
 
-In _C:\...\Git\etc\profile.d\bash_profile.sh_
- 
+Create _~/.config/git/git-prompt.sh_ with:
+
 ```shell script
-# NOTE: we cannot add this directly to .bashrc because we want JetBrains terminals to `cd` correctly into specific repos
+# This file ~/.config/git/git-prompt.sh prevents GitBash window running the expensive PS1=
+# NOTE: this does not run in JetBrains terminal or SSH (.bashrc will be used in those cases)
+
+# Prompt for GitBash terminal
+PS1='\[\033]0;$TITLEPREFIX:$PWD\007\]' # set window title
+PS1="$PS1"'\[\033[36m\]'       # change to purple # Jorge: cyan
+PS1="$PS1"'\t '          # show MSYSTEM
+PS1="$PS1"'\[\033[32m\]'       # change to green
+PS1="$PS1"'\u@\h '             # user@host<space>
+PS1="$PS1"'\[\033[33m\]'       # change to brownish yellow
+PS1="$PS1"'\w'                 # current working directory
+PS1="$PS1"'\[\033[0m\]'        # change color
+PS1="$PS1"' $ '                 # prompt: always $
+
+# Manually do this if GitBash is pinned to the Windows taskbar, because --cd-to-home cannot be specified for the taskbar shortcut
 cd $HOME
 ```
 
-In _C:\...\Git\etc\profile.d\git-prompt.sh_
-
-```shell script
-# Comment out the conditional that executes git status, to improve performance
-if test -z "$WINELOADERNOEXEC"
-  # ...
-fi
-
-# Ensure you have a space before $
-PS1="$PS1"' $ '
-``` 
-
-In _.aliases.ohmyzsh_, comment out `alias ls=` otherwise these will override the GitBash aliases
+In _.aliases.ohmyzsh_, comment out `alias ls=` otherwise these will override the GitBash `--color=auto` alias
 
 In _C:\...\Git\etc\profile.d\aliases.sh_, comment out the `alias` commands, then replace with:
 
@@ -65,4 +67,3 @@ In _C:\...\Git\etc\profile.d\aliases.sh_, comment out the `alias` commands, then
 # GitBash requires `--color=auto` in order to properly show colors in Windows
 alias ls='ls --color=auto --show-control-chars'
 ```
-
