@@ -55,15 +55,16 @@ PS1="$PS1"'\w'                 # current working directory
 PS1="$PS1"'\[\033[0m\]'        # change color
 PS1="$PS1"' $ '                 # prompt: always $
 
-# Manually do this if GitBash is pinned to the Windows taskbar, because --cd-to-home cannot be specified for the taskbar shortcut
-cd $HOME
+# GitBash requires `--color=auto` in order to properly show colors in Windows
+# We put it here because it's run by both the GitBash window and JetBrains terminals/etc.
+alias ls='ls --color=auto --show-control-chars'
 ```
 
 In _.aliases.ohmyzsh_, comment out `alias ls=` otherwise these will override the GitBash `--color=auto` alias
 
-In _C:\...\Git\etc\profile.d\aliases.sh_, comment out the `alias` commands, then replace with:
+In _C:\...\Git\etc\profile.d\aliases.sh_, comment out the `alias` commands, then add:
 
 ```shell script
-# GitBash requires `--color=auto` in order to properly show colors in Windows
-alias ls='ls --color=auto --show-control-chars'
+# In case GitBash is pinned to the Windows taskbar, and --cd-to-home cannot be specified for the taskbar shortcut, we must add this
+cd $HOME
 ```
