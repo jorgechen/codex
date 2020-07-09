@@ -1,3 +1,3 @@
 # codex
 
-configurations to setup the dev machines
+configurations to setup a dev machine
