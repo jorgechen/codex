@@ -65,6 +65,6 @@ In _.aliases.ohmyzsh_, comment out `alias ls=` otherwise these will override the
 In _C:\...\Git\etc\profile.d\aliases.sh_, comment out the `alias` commands, then add:
 
 ```shell script
-# In case GitBash is pinned to the Windows taskbar, and --cd-to-home cannot be specified for the taskbar shortcut, we must add this
+# Optional: If you pin GitBash to Windows taskbar, the --cd-to-home cannot be specified for taskbar shortcuts. However, beware that this will affect the opening if GitBash from a Win context menu
 cd $HOME
 ```
