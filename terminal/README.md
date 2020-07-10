@@ -62,9 +62,6 @@ alias ls='ls --color=auto --show-control-chars'
 
 In _.aliases.ohmyzsh_, comment out `alias ls=` otherwise these will override the GitBash `--color=auto` alias
 
-In _C:\...\Git\etc\profile.d\aliases.sh_, comment out the `alias` commands, then add:
+In _C:\...\Git\etc\profile.d\aliases.sh_, comment out the `alias` commands.
 
-```shell script
-# Optional: If you pin GitBash to Windows taskbar, the --cd-to-home cannot be specified for taskbar shortcuts. However, beware that this will affect the opening if GitBash from a Win context menu
-cd $HOME
-```
+Optionally, to pin GitBash to the Windows taskbar, right click on the shortcut in Explorer and click "Pin to Taskbar", so that the Taskbar button remembers the `--cd-to-home` argument (Because of this arg, we cannot directly right-click it!)
