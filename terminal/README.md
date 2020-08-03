@@ -46,14 +46,18 @@ Create _~/.config/git/git-prompt.sh_ with:
 
 # Prompt for GitBash terminal
 PS1='\[\033]0;$TITLEPREFIX:$PWD\007\]' # set window title
-PS1="$PS1"'\[\033[36m\]'       # change to purple # Jorge: cyan
-PS1="$PS1"'\t '          # show MSYSTEM
-PS1="$PS1"'\[\033[32m\]'       # change to green
-PS1="$PS1"'\u@\h '             # user@host<space>
-PS1="$PS1"'\[\033[33m\]'       # change to brownish yellow
+PS1="$PS1"'\[\033[32m\]' # green
+PS1="$PS1"'\t '                # show MSYSTEM
+PS1="$PS1"'\[\033[36m\]' # cyan
+#PS1="$PS1"'\u@\h '             # user@host<space>
 PS1="$PS1"'\w'                 # current working directory
-PS1="$PS1"'\[\033[0m\]'        # change color
-PS1="$PS1"' $ '                 # prompt: always $
+PS1="$PS1"'\[\033[33m\]' # yellow
+PS1="$PS1"' $ '                # prompt: always $
+PS1="$PS1"'\[\033[0m\]'  # white
+
+# Avoid these colors on certain terminals, e.g. Windows GitBash:
+#PS1="$PS1"'\[\033[35m\]' # magenta
+#PS1="$PS1"'\[\033[34m\]' # blue
 
 # GitBash requires `--color=auto` in order to properly show colors in Windows
 # We put it here because it's run by both the GitBash window and JetBrains terminals/etc.
