@@ -7,12 +7,16 @@ export UPDATE_ZSH_DAYS=90
 echo 'FILL OUT ~/.zshrc for:'
 echo 'NPM_TOKEN=...'
 
-# George's utility commands
+# utility commands
 guid() {
  _guid=$(uuidgen)
  echo $_guid
  echo $_guid | pbcopy
 }
+
+# set CTRL+U behavior similar to bash:
+bindkey \^U backward-kill-line
+
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -81,7 +85,7 @@ ZSH_THEME=jorge
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git nvm)
+plugins=(git nvm zsh-autosuggestions zsh-completions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -111,3 +115,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source ~/.aliases
+
+
+# KEEP THIS LINE LAST
+# Run `brew install zsh-syntax-highlighting`, then
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
