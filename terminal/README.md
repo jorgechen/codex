@@ -69,3 +69,5 @@ In _.aliases.ohmyzsh_, comment out `alias ls=` otherwise these will override the
 In _C:\...\Git\etc\profile.d\aliases.sh_, comment out the `alias` commands.
 
 Optionally, to pin GitBash to the Windows taskbar, right click on the shortcut in Explorer and click "Pin to Taskbar", so that the Taskbar button remembers the `--cd-to-home` argument (Because of this arg, we cannot directly right-click it!)
+
+Optionally, [download `jq`](https://stedolan.github.io/jq/) and add `alias jq=$PATH_TO_JQ/jq-win64.exe`
