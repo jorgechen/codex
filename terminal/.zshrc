@@ -1,3 +1,4 @@
+export PAGER=cat
 export NPM_TOKEN='TODO_FILL_ME'
 export ZSH="$HOME/.oh-my-zsh"
 export DOTNET_CLI_TELEMETRY_OPTOUT=true

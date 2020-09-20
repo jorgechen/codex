@@ -4,7 +4,6 @@ source ~/.aliases
 
 ### terminal color scheme ###
 export TERM="xterm-color"
-# PS1="\[\033[01;32m\]\u@\h\[\033[01;36m\] \w \$\[\033[00m\] "
 PS1="${debian_chroot:+($debian_chroot)}\[\033[01;36m\]\t \[\033[01;32m\]\u@\h\[\033[90m\]:\[\033[01;33m\]\w \[\033[37m\]\$\[\033[00m\] "
 
 ### Android
