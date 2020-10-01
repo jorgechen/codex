@@ -111,6 +111,7 @@ module.exports = {
     // PowerShell on Windows
     // - Example: `C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`
     shell: '',
+    // shell: 'C:\\Windows\\System32\\bash.exe', // WSL Ubuntu shell
 
     // for setting shell arguments (i.e. for using interactive shellArgs: `['-i']`)
     // by default `['--login']` will be used
@@ -154,7 +155,8 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    `hyperpower`,
+    // 'hyperpower',
+    'hyper-dracula',
     'hyper-search',
   ],
 
@@ -203,7 +205,6 @@ module.exports = {
     "editor:redo": "ctrl+shift+y",
     "editor:cut": "ctrl+shift+x",
     "editor:copy": [
-      // 'ctrl+c', // `editor:break` overrides this erroneously
       "ctrl+shift+c"
     ],
     "editor:paste": [
@@ -221,7 +222,9 @@ module.exports = {
     "editor:deleteEndLine": "ctrl+end",
     "editor:clearBuffer": "alt+k",
     "editor:break": "ctrl+c",
-    "plugins:update": "ctrl+shift+u"
+    'plugins:update': 'ctrl+shift+u',
+    'hyper-search:search:prev': 'ctrl+shift+g',
+    'hyper-search:search:next': 'ctrl+g',
   },
 
   scrollback: 9000,
