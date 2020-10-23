@@ -220,7 +220,7 @@ module.exports = {
     "editor:deleteNextWord": "ctrl+del",
     "editor:deleteBeginningLine": "ctrl+shift+home",
     "editor:deleteEndLine": "ctrl+end",
-    "editor:clearBuffer": "alt+k",
+    // "editor:clearBuffer": "alt+k",  // buggy, at least on Windows
     "editor:break": "ctrl+c",
     'plugins:update': 'ctrl+shift+u',
     'hyper-search:search:prev': 'ctrl+shift+g',
